@@ -42,7 +42,7 @@ let users = cargarUsuarios();
 // GET con paginación
 app.get('/users', (req, res) => {
   let page = parseInt(req.query.page) || 1;
-  let perPage = parseInt(req.query.per_page) || 5;
+  let perPage = parseInt(req.query.per_page) || 6;
   let total = users.length;
   let totalPages = Math.ceil(total / perPage);
 
@@ -51,12 +51,14 @@ app.get('/users', (req, res) => {
   const data = users.slice(start, end);
 
   res.json({
-    page,
-    per_page: perPage,
-    total,
-    total_pages: totalPages,
-    data
+    data: {
+      page,
+      per_page: perPage,
+      total,
+      total_pages: totalPages
+    }
   });
+  
 });
 
 // GET por id
