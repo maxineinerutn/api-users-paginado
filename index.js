@@ -51,12 +51,11 @@ app.get('/users', (req, res) => {
   const data = users.slice(start, end);
 
   res.json({
-    data: {
-      page,
-      per_page: perPage,
-      total,
-      total_pages: totalPages
-    }
+    page,
+    per_page: perPage,
+    total,
+    total_pages: totalPages,
+    data
   });
   
 });
@@ -64,7 +63,7 @@ app.get('/users', (req, res) => {
 // GET por id
 app.get('/users/:id', (req, res) => {
   const user = users.find(u => u.id === parseInt(req.params.id));
-  user ? res.json(user) : res.status(404).send('No encontrado');
+  user ? res.json({data:user}) : res.status(404).send('No encontrado');
 });
 
 // POST con soporte de archivo
